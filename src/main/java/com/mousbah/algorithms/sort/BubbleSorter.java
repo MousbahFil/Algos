@@ -15,7 +15,7 @@ public class BubbleSorter {
         }));
     }
 
-    private static int[] sortUsingLoop(int[] a) {
+    public static void sortUsingLoop(int[] a) {
         for(int i=0; i< a.length; i++){
             for(int j=a.length-1; j>i ;j--){
                 if(a[j]<a[j-1]){
@@ -25,6 +25,5 @@ public class BubbleSorter {
                 }
             }
         }
-        return a;
     }
 }

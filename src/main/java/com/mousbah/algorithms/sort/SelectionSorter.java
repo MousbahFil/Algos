@@ -1,20 +1,17 @@
 package com.mousbah.algorithms.sort;
 
+import static com.mousbah.algorithms.sort.ArraySortingUtilities.*;
+
 public class SelectionSorter {
 
     public static void sort(int[] a) {
         for (int i = 0; i < a.length; i++) {
-            int minimum = a[i];
-            int minIndex = i;
-            for (int j = i + 1; j < a.length; j++) {
-                if (a[j] < minimum) {
-                    minimum = a[j];
-                    minIndex = j;
-                }
-            }
-            int temp = a[i];
-            a[i] = a[minIndex];
-            a[minIndex] = temp;
+            int maxIndex = getMaxIndex(a, 0, a.length - 1 - i);
+            int temp = a[maxIndex];
+            a[maxIndex] = a[a.length - 1 - i];
+            a[a.length - 1 - i] = temp;
         }
     }
+
+
 }
