@@ -9,6 +9,7 @@ package com.mousbah.algorithms;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class LongestCommonPrefix {
@@ -22,11 +23,16 @@ public class LongestCommonPrefix {
         System.out.println(new LongestCommonPrefix().getLongestCommonPrefix(strings));
     }
 
-    public String getLongestCommonPrefix(ArrayList<String> A) {
-        List<String> prefixes = getPrefixes(A.get(0));
+    public String getLongestCommonPrefix(ArrayList<String> input) {
+//        List<String> sortedList = input.stream().sorted((s1, s2) -> s1.length() < s2.length() ? -1 : 1).collect(Collectors.toList());
+//        String prefix = sortedList.get(0);
+//        for (int i=1; i< input.size(); i++){
+//            for (int j=0; j)
+//        }
+        List<String> prefixes = getPrefixes(input.get(0));
         String result = "";
         for (String prefix : prefixes) {
-            if (isPrefix(prefix, A) && (prefix.length() > result.length())) {
+            if (isPrefix(prefix, input) && (prefix.length() > result.length())) {
                 result = prefix;
             }
         }
