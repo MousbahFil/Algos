@@ -2,7 +2,7 @@ package com.mousbah.algorithms.sort;
 
 import org.junit.Test;
 
-import static com.mousbah.algorithms.sort.SorterUtils.*;
+import static com.mousbah.algorithms.sort.SorterTestUtils.*;
 
 import static org.junit.Assert.*;
 

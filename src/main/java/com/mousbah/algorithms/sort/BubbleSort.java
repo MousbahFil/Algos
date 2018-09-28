@@ -3,7 +3,7 @@ package com.mousbah.algorithms.sort;
 import java.util.Arrays;
 import java.util.stream.IntStream;
 
-public class BubbleSorter {
+public class BubbleSort {
 
     public static void sort(int[] a){
         IntStream.range(0, a.length).forEach(i-> IntStream.range(0, a.length-i-1).forEach(j ->{

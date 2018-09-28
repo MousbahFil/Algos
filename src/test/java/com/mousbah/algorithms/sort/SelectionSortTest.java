@@ -3,21 +3,21 @@ package com.mousbah.algorithms.sort;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
-import static com.mousbah.algorithms.sort.SorterUtils.*;
+import static com.mousbah.algorithms.sort.SorterTestUtils.*;
 
-public class SelectionSorterTest {
+public class SelectionSortTest {
 
     @Test
     public void canSortArrayTest() {
         int[] a=createUnsortedOddLengthArray();
-         SelectionSorter.sort(a);
+         SelectionSort.sort(a);
         assertArrayEquals(createSortedOddLengthArray(), a);
     }
 
     @Test
     public void canSortArrayOfIdenticalElementsTest() {
         int[] a= createArrayOfIdenticalElements();
-        SelectionSorter.sort(a);
+        SelectionSort.sort(a);
         assertArrayEquals(a, a);
     }
 

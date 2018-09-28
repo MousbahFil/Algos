@@ -1,9 +1,8 @@
-package com.mousbah.algorithms.arrays.anagram;
+package com.mousbah.algorithms.arrays;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class AnagramSolver {
 

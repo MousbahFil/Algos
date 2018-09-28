@@ -2,7 +2,7 @@ package com.mousbah.algorithms.sort;
 
 import static org.junit.Assert.assertArrayEquals;
 
-public class SorterUtils {
+public class SorterTestUtils {
 
     public static int[] createUnsortedEvenLenghtArray() {
         return new int[]{1,7,6,12,5,9,6,11,153,155,154,158,156,156,161,160};

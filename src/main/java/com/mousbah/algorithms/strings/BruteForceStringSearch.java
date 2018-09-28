@@ -4,14 +4,9 @@
  *  This software program is proprietary and confidential to Murex S.A.S and its affiliates ("Murex") and, without limiting the generality of the foregoing reservation of rights, shall not be accessed, used, reproduced or distributed without the
  *  express prior written consent of Murex and subject to the applicable Murex licensing terms. Any modification or removal of this copyright notice is expressly prohibited.
  */
-package com.mousbah.algorithms;
+package com.mousbah.algorithms.strings;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.stream.IntStream;
-
-
-public class BoyerMooreAlgorithm {
+public class BruteForceStringSearch {
 
     //~ ----------------------------------------------------------------------------------------------------------------
     //~ Instance fields
@@ -23,7 +18,7 @@ public class BoyerMooreAlgorithm {
     //~ Constructors
     //~ ----------------------------------------------------------------------------------------------------------------
 
-    public BoyerMooreAlgorithm(String text) {
+    public BruteForceStringSearch(String text) {
         this.text = text;
     }
 
@@ -33,8 +28,8 @@ public class BoyerMooreAlgorithm {
 
     public static void main(String[] args) {
         String text = "Hello this is a sample text used for pattern matching";
-        BoyerMooreAlgorithm boyerMooreAlgorithm = new BoyerMooreAlgorithm(text);
-        System.out.println(boyerMooreAlgorithm.indexOf("sample"));
+        BruteForceStringSearch bruteForceStringSearch = new BruteForceStringSearch(text);
+        System.out.println(bruteForceStringSearch.indexOf("matching"));
     }
 
     public String getText() {
@@ -46,28 +41,20 @@ public class BoyerMooreAlgorithm {
     }
 
     public int indexOf(String pattern) {
-        Map<Character, Integer> badPointsTable = createBadPointsTable(pattern);
-        int numberOfSkips = 0;
-        for (int i = 0; i <= (text.length() - pattern.length()); i += numberOfSkips) {
-            numberOfSkips = 0;
-            for (int j = pattern.length() - 1; j >= 0; j--) {
+        int length = text.length();
+        for (int i = 0; i < length; i++) {
+            boolean foundMatch = true;
+            for (int j = 0; j < pattern.length(); j++) {
                 if (pattern.charAt(j) != text.charAt(i + j)) {
-                    numberOfSkips = badPointsTable.getOrDefault(pattern.charAt(j), pattern.length());
+                    foundMatch = false;
                     break;
                 }
             }
-            if (numberOfSkips == 0) {
+            if (foundMatch) {
                 return i;
             }
         }
         return -1;
-    }
-
-    private Map<Character, Integer> createBadPointsTable(String pattern) {
-        Map<Character, Integer> map = new LinkedHashMap<>();
-        int patternLength = pattern.length();
-        IntStream.range(0,patternLength).forEach(i -> map.put(pattern.charAt(i), Math.max(1, patternLength - 1 - i)));
-        return map;
     }
 
 }

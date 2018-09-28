@@ -4,16 +4,16 @@ import org.junit.Test;
 
 import java.util.function.Function;
 
-import static com.mousbah.algorithms.sort.SorterUtils.createSortedEvenLengthArray;
-import static com.mousbah.algorithms.sort.SorterUtils.createUnsortedEvenLenghtArray;
+import static com.mousbah.algorithms.sort.SorterTestUtils.createSortedEvenLengthArray;
+import static com.mousbah.algorithms.sort.SorterTestUtils.createUnsortedEvenLenghtArray;
 import static org.junit.Assert.assertArrayEquals;
 
-public class BubbleSorterTest {
+public class BubbleSortTest {
 
     @Test
     public void canSortArrayTest() {
         sortArray(a -> {
-            BubbleSorter.sort(a);
+            BubbleSort.sort(a);
             return null;
         });
     }
@@ -21,7 +21,7 @@ public class BubbleSorterTest {
     @Test
     public void canSortArrayUsingPlainOldLoopsTest() {
         sortArray(a -> {
-            BubbleSorter.sortUsingLoop(a);
+            BubbleSort.sortUsingLoop(a);
             return null;
         });
     }

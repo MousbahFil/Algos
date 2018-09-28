@@ -2,7 +2,7 @@ package com.mousbah.algorithms.sort;
 
 import static com.mousbah.algorithms.sort.ArraySortingUtilities.*;
 
-public class SelectionSorter {
+public class SelectionSort {
 
     public static void sort(int[] a) {
         for (int i = 0; i < a.length; i++) {

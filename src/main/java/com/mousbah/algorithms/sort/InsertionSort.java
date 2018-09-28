@@ -1,6 +1,6 @@
 package com.mousbah.algorithms.sort;
 
-public class InsertionSorter {
+public class InsertionSort {
 
     public static void sort(int[] a) {
         for (int i = 1; i < a.length; i++) {
