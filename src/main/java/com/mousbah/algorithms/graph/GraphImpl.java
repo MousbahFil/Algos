@@ -12,36 +12,23 @@ public class GraphImpl implements Graph {
     }
 
     public static void main(String[] args) {
-        Graph graph = new GraphImpl();
 
-        Vertex a = new Vertex("a");
-        Vertex b = new Vertex("b");
-        Vertex c = new Vertex("c");
-        Vertex d = new Vertex("d");
-        Vertex e = new Vertex("e");
-        Vertex f = new Vertex("f");
-
-        a.addEdge(b, 20);
-        a.addEdge(c, 10);
-        b.addEdge(c, 1);
-        b.addEdge(d, 2);
-        b.addEdge(e, 2);
-        c.addEdge(e, 2);
-        e.addEdge(f, 2);
-        a.addEdge(e, 100);
-        graph.addVertices(Arrays.asList(a));
-
-        graph.breadthFirstSearch(v -> {
-            System.out.println(String.format("Visiting vertex '%s'", v.getName()));
-            return null;
-        });
-
-        System.out.println(graph.findShortestPath(a, e));
     }
 
     @Override
     public void addVertices(List<Vertex> vertices) {
-        this.vertices = vertices;
+        this.vertices.addAll(vertices);
+    }
+
+    @Override
+    public void addVertices(Vertex... vertices) {
+        this.vertices.addAll(Arrays.asList(vertices));
+    }
+
+    @Override
+    public void addVertex(Vertex vertex) {
+        vertices.add(vertex);
+
     }
 
     @Override
@@ -90,7 +77,7 @@ public class GraphImpl implements Graph {
     public <T> void breadthFirstSearch(Function<Vertex, T> function) {
         Queue<Vertex> queue = new LinkedList<>();
         Set<Vertex> visitedVertices = new HashSet<>();
-        for (Vertex v : vertices) {
+        for (Vertex v : vertices) {//Adding root Vertices
             queue.add(v);
         }
 
@@ -104,6 +91,74 @@ public class GraphImpl implements Graph {
                 }
             }
         }
+    }
+
+    @Override
+    public boolean hasCycles() {
+        Set<Vertex> visitedVertices = new HashSet<>();
+        Set<Vertex> verticesBeingVisited = new HashSet<>();
+
+        for (Vertex v : vertices) {
+            if (visitedVertices.contains(v)) {
+                continue;
+            } else if (hasCycles(v, visitedVertices, verticesBeingVisited)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public List<Vertex> topologicalSort() {
+        if (hasCycles()) {
+            throw new IllegalStateException("The Graph has a cycle, therefore the topological sort algorithm does not support it");
+        }
+        Stack<Vertex> stack = new Stack<>();
+        Set<Vertex> set = new HashSet<>();
+
+        for (Vertex v : vertices) {
+            if (set.contains(v)) {
+                continue;
+            }
+            topologicalSort(v, stack, set);
+        }
+        List<Vertex> result = new ArrayList<>();
+        while (!stack.isEmpty()) {
+            result.add(stack.pop());
+        }
+        return result;
+    }
+
+    private void topologicalSort(Vertex v, Stack<Vertex> stack, Set<Vertex> visitedVertices) {
+        if (visitedVertices.contains(v)) {
+            return;
+        }
+        visitedVertices.add(v);
+        for (Edge e : v.getEdges()) {
+            Vertex targetVertex = e.getTargetVertex();
+            topologicalSort(targetVertex, stack, visitedVertices);
+        }
+        stack.push(v);
+    }
+
+    private boolean hasCycles(Vertex v, Set<Vertex> visitedVertices, Set<Vertex> verticesBeingVisited) {
+        verticesBeingVisited.add(v);
+        for (Edge e : v.getEdges()) {
+            Vertex targetVertex = e.getTargetVertex();
+            if (visitedVertices.contains(targetVertex)) {
+                continue;
+            } else if (verticesBeingVisited.contains(targetVertex)) {
+                return true;
+            }
+            if (hasCycles(targetVertex, visitedVertices, verticesBeingVisited)) {
+                return true;
+            } else {
+                verticesBeingVisited.remove(targetVertex);
+            }
+        }
+        verticesBeingVisited.remove(v);
+        visitedVertices.add(v);
+        return false;
     }
 
 
